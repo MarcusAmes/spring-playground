@@ -21,16 +21,6 @@ public class EndpointsControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void pagesControllerTest() throws Exception {
-        RequestBuilder request = get("/math/pi");
-
-        this.mvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(content().string("3.141592653589793"));
-
-    }
-
-    @Test
     public void testIndexEndpoint() throws Exception {
         this.mvc.perform(get("/vehicles?year=1987&doors=2"))
                 .andExpect(status().isOk());
