@@ -1,9 +1,8 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 public class EndpointsController {
@@ -27,5 +26,15 @@ public class EndpointsController {
     @GetMapping("/math/pi")
     public String getPi() {
         return "3.141592653589793";
+    }
+
+    @GetMapping("/vehicles")
+    public String getVehicle(@RequestParam(value = "doors", defaultValue = "4") String doors, @RequestParam String year) {
+        return year + doors;
+    }
+
+    @GetMapping("/cars")
+    public String getCar(@RequestParam Map querystring) {
+        return querystring.toString();
     }
 }

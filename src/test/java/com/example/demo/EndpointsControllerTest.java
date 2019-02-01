@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,11 +22,17 @@ public class EndpointsControllerTest {
 
     @Test
     public void pagesControllerTest() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/math/pi");
+        RequestBuilder request = get("/math/pi");
 
         this.mvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(content().string("3.141592653589793"));
 
+    }
+
+    @Test
+    public void testIndexEndpoint() throws Exception {
+        this.mvc.perform(get("/vehicles?year=1987&doors=2"))
+                .andExpect(status().isOk());
     }
 }
