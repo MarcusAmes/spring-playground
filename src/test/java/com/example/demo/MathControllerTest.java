@@ -4,9 +4,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -61,5 +63,54 @@ public class MathControllerTest {
         this.mvc.perform(post("/math/volume/3/4/5"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+    }
+
+    @Test
+    public void circleAreaTest() throws Exception {
+        MockHttpServletRequestBuilder request = post("/math/area")
+                .contentType((MediaType.APPLICATION_FORM_URLENCODED))
+                .param("type", "circle")
+                .param("radius", "3");
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Area is 28.27"));
+    }
+    @Test
+    public void rectangleAreaTest() throws Exception {
+        MockHttpServletRequestBuilder request = post("/math/area")
+                .contentType((MediaType.APPLICATION_FORM_URLENCODED))
+                .param("type", "rectangle")
+                .param("length", "3")
+                .param("width", "5");
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Area is 15.00"));
+    }
+    @Test
+    public void invalidAreaTest() throws Exception {
+        MockHttpServletRequestBuilder request = post("/math/area")
+                .contentType((MediaType.APPLICATION_FORM_URLENCODED))
+                .param("type", "rectangle")
+                .param("radius", "3")
+                .param("length", "3");
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Invalid"));
+    }
+
+    @Test
+    public void invalidNegativeAreaTest() throws Exception {
+        MockHttpServletRequestBuilder request = post("/math/area")
+                .contentType((MediaType.APPLICATION_FORM_URLENCODED))
+                .param("type", "rectangle")
+                .param("width", "-3")
+                .param("length", "3");
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Invalid"));
     }
 }

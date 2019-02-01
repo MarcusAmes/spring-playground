@@ -1,9 +1,7 @@
 package com.example.demo;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/math")
@@ -40,6 +38,17 @@ public class MathController {
     @GetMapping("/pi")
     public String getPi() {
         return "3.141592653589793";
+    }
+
+    @PostMapping(value = "/area", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String getArea(Area area) {
+        if(area.isValid()) {
+            return area.toString();
+        } else {
+            return "Invalid";
+        }
+
+
     }
 
 }
