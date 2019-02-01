@@ -23,10 +23,6 @@ public class EndpointsController {
     public String helloWorld() {
         return "Hello World!";
     }
-    @GetMapping("/math/pi")
-    public String getPi() {
-        return "3.141592653589793";
-    }
 
     @GetMapping("/vehicles")
     public String getVehicle(@RequestParam(value = "doors", defaultValue = "4") String doors, @RequestParam String year) {

@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,11 +20,11 @@ public class PagesControllerTest {
 
     @Test
     public void pagesControllerTest() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/hello");
+        int peopleId = 4;
 
-        this.mvc.perform(request)
+        this.mvc.perform(patch(String.format("/people/%d", peopleId)))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hello World"));
+                .andExpect(content().string("4"));
 
     }
 }

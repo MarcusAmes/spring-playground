@@ -55,4 +55,11 @@ public class MathControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("3 + 4 + 2 + 10 = 19"));
     }
+
+    @Test
+    public void calculateVolumeTest() throws Exception {
+        this.mvc.perform(post("/math/volume/3/4/5"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+    }
 }

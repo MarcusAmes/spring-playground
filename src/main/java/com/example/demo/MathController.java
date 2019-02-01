@@ -31,4 +31,15 @@ public class MathController {
         return equation.toString();
     }
 
+    @RequestMapping("/volume/{length}/{width}/{height}")
+    public String getVolume(@PathVariable int length, @PathVariable int width, @PathVariable int height) {
+        int volume = length * width * height;
+        return String.format("The volume of a %dx%dx%d rectangle is %d", length, width, height, volume);
+    }
+
+    @GetMapping("/pi")
+    public String getPi() {
+        return "3.141592653589793";
+    }
+
 }
